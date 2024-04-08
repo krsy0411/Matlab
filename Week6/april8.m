@@ -56,8 +56,19 @@ xlabel('시간 (분)');
 ylabel('이동거리 (해리)');
 title('시간에 따른 화물선의 이동거리');
 
+%% 예제1) Symbolic math 사용
+clear; clc;
 
+syms k v t
+% v변수에 대해 8~v까지의 범위를 적분
+int(-1/(k*v^2), v, 8, v)
+% 첫번째 인자(함수)에서 v변수에 대해서 해 구하기
+solve(t == (1/v - 1/8)/k, v)
 
+% 기호 수학(Symbolic math)에서 t와 v에 대해서 10과 4를 넣어서 계산 -> k는 아직 모름
+ans1 = subs(v == 1/(k*t + 1/8), [t v], [1/6 4]);
+% 첫번째 인자(함수)에서 k변수에 대해서 해 구하기
+disp(solve(ans1, k))
 
 
 

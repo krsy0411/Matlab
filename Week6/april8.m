@@ -56,7 +56,7 @@ xlabel('시간 (분)');
 ylabel('이동거리 (해리)');
 title('시간에 따른 화물선의 이동거리');
 
-%% 예제1) Symbolic math 사용
+%% 예제1) 직선운동 : Symbolic math 사용
 clear; clc;
 
 syms k v t
@@ -69,6 +69,35 @@ solve(t == (1/v - 1/8)/k, v)
 ans1 = subs(v == 1/(k*t + 1/8), [t v], [1/6 4]);
 % 첫번째 인자(함수)에서 k변수에 대해서 해 구하기
 disp(solve(ans1, k))
+
+%% 예제2) 발사체 문제(직교 좌표)
+clear; clc;
+
+u = 400;
+g = 9.81;
+
+syms th t
+
+fn1 = u*cos(th)*t == 5000;
+fn2 = (-0.5)*g*(t^2) + u*sin(th)*t == 1500;
+% th와 t에 대한 결과값을 변수에 각각 할당
+[th, t] = solve(fn1, fn2, th, t);
+% 값 변환 : sym -> double
+th_db = double(th);
+t_db = double(t);
+
+% radian값을 deg값으로 변환
+th1 = rad2deg(th_db(1));
+th2 = rad2deg(th_db(2));
+
+t1f = t_db(1);
+t2f = t_db(2);
+
+% 그래프 그리기
+t1 = 0:0.01:t1f; % 시간
+x1 = u*cosd(th1)*t1; % 시간에 대한 x축 값
+y1 = -0.5*g*t1.^2 + u*sind(th1)*t1; % 시간에 대한 y축 값
+plot(x1,y1), xlabel('x축'), ylabel('y축'), title('발사체 문제')
 
 
 

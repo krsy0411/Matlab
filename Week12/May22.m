@@ -40,4 +40,3 @@ eq2 = T2 + V2 == T3 + V3;
 [va1, vb2] = solve(eq1, eq2, va1, vb2);
 
 theta = 0:0.01:90;
-va1 = 
